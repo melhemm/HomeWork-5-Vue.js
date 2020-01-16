@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    width: auto;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #2e6b31;
+    overflow: hidden;
+}
+
+nav {
+    width: auto;
+    margin: 0 auto;
+
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0 auto;
+    list-style: none;
+}
+
+li {
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+a:hover {
+    color: #c9c9c9;
+}
+
+
+/* End Of Menu */
+
+#general {
+    margin: 0 auto;
+    max-width: 1200px;
+    text-align: center;
+}
+
+#general form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+#general form button {
+    padding: 0.4rem;
+    background-color: #3b6e37;
+    color: #ffffff;
+    margin: 1rem;
+}
+
+.component-fade-enter-active,
+.component-fade-leave-active {
+    transition-duration: 0.7s;
+}
+
+.component-fade-enter,
+.component-fade-leave-to {
+    opacity: 0;
+    transform: translateY(300px);
+}

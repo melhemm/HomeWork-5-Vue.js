@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 1. Усовершенствовать «Меню навигации». Меню представляет 
+    собой набор вкладок, например: главная, проекты, 
+    услуги, контакты. По нажатию на вкладку менять 
+    основной контент страницы в соответствие с 
+    выбранной вкладкой. Данную механику реализовать 
+    через динамические компоненты. -->
+
+    <div id="app">
+        <header>
+            <div class="container">
+                <nav id="navbar">
+                    <ul>
+                        <li><a href="#home" @click="switchTo('home')">главная</a></li>
+                        <li><a href="#about" @click="switchTo('about')">проекты</a></li>
+                        <li><a href="#services" @click="switchTo('services')">услуги</a></li>
+                        <li><a href="#contact" @click="switchTo('contact')">контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="pages">
+            <transition name="component-fade" mode="out-in">
+                <component :is="currentPage"></component>
+            </transition>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                currentPage: 'home',
+            },
+            methods: {
+                switchTo: function(page) {
+                    this.currentPage = page;
+                }
+            },
+
+            components: {
+                home: {
+                    template: ` <div id="general">
+                                <h1> Главная </h1>
+                                <h4> {{homeContent}} </h4>
+                                </div> `,
+                    data: function() {
+                        return {
+                            homeContent: 'Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.'
+                        }
+                    }            
+                },
+
+                about: {
+                    template: ` <div id="general">
+                                <h2> Проекты </h2>
+                                <h4> {{projectsData}} </h4>
+                                </div>`,
+                    data: function() {
+                        return {
+                            projectsData: 'Enjoy on your TV. Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.'
+                        }
+                    }            
+                },
+                services: {
+                    template: ` <div id="general">
+                                <h2> Услуги <h2>   
+                                <h4> {{servicesData}} </h4>
+                                </div>`,
+                    data: function() {
+                        return {
+                            servicesData: 'Download your shows to watch on the go. Save your data and watch all your favorites offline.'
+                        }
+                    }            
+                },
+                contact: {
+                    template: ` <div id="general">
+                                <h2> Контакты </h2>
+                                <form>
+                                <label> Your Name: </label>
+                                <input v-model= "userData.name" type= "text">
+                                <label> Your Message: </label>
+                                <textarea v-model= "userData.message"></textarea>
+                                <button type= "submit">Send</button>
+                                </form>
+                                </div> `,
+                    data: function() {
+                        return {
+                            userData: {name: '', message: ''}
+                        }
+                    }            
+                }
+
+            }
+        })
+    </script>

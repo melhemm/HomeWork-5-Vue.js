@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,105 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <title>Document</title>
 </head>
-<body>
-    
-    
+
+<div id="app">
+    <header>
+        <div class="container">
+            <nav id="navbar">
+                <ul>
+                    <li><a href="#home" @click="switchTo('home')">главная</a></li>
+                    <li><a href="#services" @click="switchTo('services')">услуги</a></li>
+                    <li><a href="#contact" @click="switchTo('contact')">контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="pages">
+        <transition name="component-fade" mode="out-in">
+            <component :is="currentPage"></component>
+        </transition>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            currentPage: 'home',
+        },
+        methods: {
+            switchTo: function (page) {
+                this.currentPage = page;
+            }
+        },
+
+        components: {
+            home: {
+                template: ` <div id="general">
+                            <h2> Анекдоты </h2>
+                                <div v-for="(item, index) in items" id="slide">
+                                    <transition name="component-fade" mode="out-in">
+                                        <div v-if="currentItem == index" id="item">{{ item }}</div>
+                                    </transition>
+                                </div>
+                            </div>`,
+                data: function () {
+                    return {
+                        items: [
+                            "Поручик Ржевский танцует с Наташей Ростовой на балу. Наташа спрашивает его :- Поручик, о чем это вы так задумались?- О том же, о чем и вы. - Фу, какой вы пошляк, Ржевский!",
+                            "Поручик Ржевский говорит: - Вчера я был у графини. И неожиданно пришел ее муж.- Ну и что же вы? Что вы сделали?- Защитил честь офицерского мундира.- Как это? !- Перебил всю моль в шкафу.",
+                            "Скажите, Ржевский, вам отказала хоть одна женщина?- Да, одна. - Как ее звали?- Кредитный инспектор.",
+                            "Поручик Ржевский после посещения борделя молча одевается и выходит на улицу - Поручик, а деньги? - Мадам, денег нет, но вы держитесь здесь. Вам всего доброго, хорошего настроения и здоровья."
+                        ],
+                        currentItem: 0,
+                    }
+                },
+                mounted() {
+                    setInterval(() => {
+                        this.currentItem++
+                        if (this.items.length <= this.currentItem) {
+                            this.currentItem = 0
+                        }
+                    }, 3000)
+                }
+            },
+            services: {
+                template: ` <div id="general">
+                            <h2> Услуги <h2>   
+                            <h4> {{servicesData}} </h4>
+                            </div>`,
+                data: function () {
+                    return {
+                        servicesData: 'Download your shows to watch on the go. Save your data and watch all your favorites offline.'
+                    }
+                }
+            },
+            contact: {
+                template: ` <div id="general">
+                            <h2> Контакты </h2>
+                            <form>
+                            <label> Your Name: </label>
+                            <input v-model= "userData.name" type= "text">
+                            <label> Your Message: </label>
+                            <textarea v-model= "userData.message"></textarea>
+                            <button type= "submit">Send</button>
+                            </form>
+                            </div> `,
+                data: function () {
+                    return {
+                        userData: {
+                            name: '',
+                            message: ''
+                        }
+                    }
+                }
+            }
+
+        }
+    })
+</script>
+
 </body>
+
 </html>
